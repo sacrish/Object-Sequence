@@ -11,27 +11,17 @@ class Sequentialize(bpy.types.Operator):
         scene = context.scene
         collection = bpy.data.collections[scene.target_collection]
         sequentialize(collection)
-        # colname = context.scene.target_collection
-        # for collection in bpy.data.collections:
-        #     if collection.name == colname:
-        #         sequentialize(collection)
+
         return {"FINISHED"}
 
 def sequentialize(col):
     scene = bpy.context.scene
 
-    # for collection in bpy.data.collections:
-    #     objs = [obj for obj in collection.all_objects if collection.name == colname]
     if scene.only_parent:
         objs = [obj for obj in col.all_objects if obj.parent is None]
     else:
-        objs = [obj for obj in col.all_objects]
-    # for i, obj in enumerate(objs):
-    #     # clear keyframes
-    #     obj.animation_data_clear()
-    #     # hide all objects in collection
-    #     obj.hide_viewport = True
-    #     obj.hide_render = True
+        objs = [obj for obj in col.all_objects if is_model(obj)]
+
     l = len(objs)
     # debug
     # print ('object count: ',l)
@@ -41,8 +31,6 @@ def sequentialize(col):
 
     for f in range(scene.frame_start, scene.frame_end + 1):
         i = f - scene.frame_start
-        #if i >= len(objs):
-        #    break
         obj = objs[i]
         # debug
         # print (obj.name)    
@@ -70,6 +58,7 @@ def sequentialize(col):
         # add marker with object name
         scene.timeline_markers.new(obj.name,frame=f)
 
+# get all children and subchildren of object
 def get_all_children(obj):
     children = ()
     if len(obj.children) == 0:
@@ -79,4 +68,13 @@ def get_all_children(obj):
         if len(c.children) != 0:
             children = children + get_all_children(c)
     return children
+
+# check if object is actual model
+def is_model(obj):
+    valid_types = ('MESH', 'CURVE', 'SURFACE', 'META')
+    vtypes = set(t.lower() for t in valid_types)
+    if obj.type.lower() in vtypes:
+        return True
+    else:
+        return False
 

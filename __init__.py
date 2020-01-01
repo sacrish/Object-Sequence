@@ -2,10 +2,9 @@ bl_info = {
     "name": "Object Sequence",
     "description": "Automatically sequentialize objects along the timeline and render individual frames.",
     "author": "Zakrich",
-    "version": (1, 0),
+    "version": (1, 1),
     "blender": (2, 80, 0),
     "location": "View3D",
-    #"warning": "",
     "wiki_url": "https://github.com/sacrish/Object-Sequence",
     "tracker_url": "https://github.com/sacrish/Object-Sequence/issues",
     "category": "Scene" }
@@ -16,9 +15,6 @@ import bpy
 from .op_sequentialize import *
 from .op_render import *
 from .ui_panel import *
-
-# classes = (Sequentialize, RenderMarkedFrames)
-# register, unregister = bpy.utils.register_classes_factory(classes)
 
 classes = (
     Sequentialize,
@@ -47,6 +43,7 @@ def unregister():
     for cls in classes:
         bpy.utils.unregister_class(cls)
     del bpy.types.Scene.target_collection
+    del bpy.types.Scene.only_parent
 
 if __name__ == "__main__":
     register()
