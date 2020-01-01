@@ -6,7 +6,8 @@ bl_info = {
     "blender": (2, 80, 0),
     "location": "View3D",
     #"warning": "",
-    #"wiki_url": "",
+    "wiki_url": "https://github.com/sacrish/Object-Sequence",
+    "tracker_url": "https://github.com/sacrish/Object-Sequence/issues",
     "category": "Scene" }
 
 
