@@ -1,9 +1,9 @@
 import bpy
 
 class Sequentialize(bpy.types.Operator):
-    """Sequentialize objects in active collection along timeline"""
     bl_idname = "object.sequentialize_collection"
-    bl_label = "Sequentialize objects in collection.\nWARNING: will clear animation data!"
+    bl_label = "Sequentialize collection"
+    bl_description = "Sequentialize objects in collection.\nWARNING: will clear animation data!"
     bl_options = {'REGISTER','UNDO'}
 
     def execute (self, context):
@@ -14,13 +14,27 @@ class Sequentialize(bpy.types.Operator):
 
         return {"FINISHED"}
 
-def sequentialize(col):
+class Show_All(bpy.types.Operator):
+    bl_idname = "object.show_all"
+    bl_label = "Clear sequence"
+    bl_description = "Clear object sequence and show all objects"
+    bl_options = {'REGISTER' , 'UNDO'}
+
+    def execute (self, context):
+
+        scene = context.scene
+        collection = bpy.data.collections[scene.target_collection]
+        show_all(collection)
+
+        return{"FINISHED"}
+
+def sequentialize(collection):
     scene = bpy.context.scene
 
     if scene.only_parent:
-        objs = [obj for obj in col.all_objects if obj.parent is None]
+        objs = [obj for obj in collection.all_objects if obj.parent is None]
     else:
-        objs = [obj for obj in col.all_objects if is_model(obj)]
+        objs = [obj for obj in collection.all_objects if is_model(obj)]
 
     l = len(objs)
     # debug
@@ -77,4 +91,10 @@ def is_model(obj):
         return True
     else:
         return False
+
+def show_all(collection):
+    for obj in collection.all_objects:
+        obj.animation_data_clear()
+        obj.hide_render = False
+        obj.hide_viewport = False
 

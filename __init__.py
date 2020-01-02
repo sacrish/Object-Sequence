@@ -2,7 +2,7 @@ bl_info = {
     "name": "Object Sequence",
     "description": "Automatically sequentialize objects along the timeline and render individual frames.",
     "author": "Zakrich",
-    "version": (1, 1),
+    "version": (1, 2),
     "blender": (2, 80, 0),
     "location": "View3D",
     "wiki_url": "https://github.com/sacrish/Object-Sequence",
@@ -18,6 +18,7 @@ from .ui_panel import *
 
 classes = (
     Sequentialize,
+    Show_All,
     Render_Marked_Frames,
     ObSeq_Panel,
 )
@@ -37,7 +38,6 @@ def register():
 
     for cls in classes:
         bpy.utils.register_class(cls)
-    bpy.types.Scene.target_collection = bpy.props.StringProperty()
 
 def unregister():
     for cls in classes:

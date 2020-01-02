@@ -2,9 +2,9 @@ import bpy
 import os
 
 class Render_Marked_Frames(bpy.types.Operator):
-    """Render and save frames with marker names."""
     bl_idname = "render.render_marked_frames"
-    bl_label = "Render and save frames with markers."
+    bl_label = "Render marked frames"
+    bl_description = "Render and save object sequence frames"
     bl_options = {'REGISTER','UNDO'}
 
     def execute (self, context):
