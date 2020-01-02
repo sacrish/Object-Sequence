@@ -37,6 +37,8 @@ def sequentialize(collection):
         objs = [obj for obj in collection.all_objects if is_model(obj)]
 
     l = len(objs)
+    if l == 0:
+        return
     # debug
     # print ('object count: ',l)
     scene.frame_end = scene.frame_start + l - 1
@@ -92,9 +94,14 @@ def is_model(obj):
     else:
         return False
 
+# clear object sequence
 def show_all(collection):
+    scene = bpy.context.scene
+    if not collection.all_objects:
+        return
     for obj in collection.all_objects:
         obj.animation_data_clear()
         obj.hide_render = False
         obj.hide_viewport = False
-
+    scene.timeline_markers.clear()
+    

@@ -6,7 +6,7 @@ class ObSeq_Panel(Panel):
     bl_region_type = "UI"
     bl_category = "Misc"
     bl_idname = "panel.obseq_panel"
-    bl_label = "Object Sequentializer"
+    bl_label = "Object Sequence"
 
     def draw(self, context):
 

@@ -4,6 +4,8 @@
 
 This is a blender addon I made for myself to quickly render individual images of multiple 3D objects. For example: I have 100 building models made for an RTS game, and need a thumbnail of each one of them to display in the game menu. This is when Object Sequence does the job.
 
+[A quick demo of how it works](https://youtu.be/SQukkiExx-s)
+
 This is the very first time I write something in Python, so expect bugs and always backup your files.
 
 ## How to install

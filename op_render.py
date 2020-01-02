@@ -15,6 +15,10 @@ class Render_Marked_Frames(bpy.types.Operator):
 
 def render_marked_frames(folder):
     scn = bpy.context.scene
+
+    # check if there are markers
+    if not scn.timeline_markers.items():
+        return
     # iterate through markers and render
     for k, m in scn.timeline_markers.items():  
         frame = m.frame
