@@ -95,13 +95,23 @@ def is_model(obj):
         return False
 
 # clear object sequence
+# thanks to JF-Siegmund for the fix!
 def show_all(collection):
     scene = bpy.context.scene
+    my_objects = []
     if not collection.all_objects:
         return
     for obj in collection.all_objects:
-        obj.animation_data_clear()
-        obj.hide_render = False
-        obj.hide_viewport = False
+        my_objects.append(obj.name)
+    for obj_name in my_objects:
+        try:
+            if obj is not None:
+                obj = bpy.data.objects.get(obj_name)
+                obj.animation_data_clear()
+                obj.hide_render = False
+                obj.hide_viewport = False
+        except: 
+            print("Can't find object to clear")
     scene.timeline_markers.clear()
-    
+
+

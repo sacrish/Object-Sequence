@@ -2,7 +2,7 @@ bl_info = {
     "name": "Object Sequence",
     "description": "Automatically sequentialize objects along the timeline and render individual frames.",
     "author": "Zakrich",
-    "version": (1, 2),
+    "version": (1, 3),
     "blender": (2, 80, 0),
     "location": "View3D",
     "wiki_url": "https://github.com/sacrish/Object-Sequence",
